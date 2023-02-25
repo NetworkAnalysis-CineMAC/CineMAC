@@ -1,4 +1,5 @@
 '''
+
 CINEMAC. 
 
 This program is free software: you can redistribute it and/or modify
@@ -19,4 +20,31 @@ Realized by.
 	Andrea D'Arpa
 	Maddalena Ghiotto		
 	Chloe Papadopoulou
+
 '''
+import os
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from ast import literal_eval
+from listReader import *
+# creating the tables with pandas to interact with our datasets
+cwd = os.getcwd()
+
+
+name = cwd+'/src/datasets/name.basics.tsv'
+name_table = pd.read_csv(name , sep='\t', header=0)
+
+title = cwd+'/src/datasets/title.principals.tsv'
+title_table = pd.read_csv(title , sep='\t', header=0)
+
+countries = cwd+'/src/datasets/countries.list.gz'
+countries_table = get_movie_countries(countries)
+
+movies = cwd+'/src/datasets/movie-links.list.gz'
+movies_table = get_movie_links(movies)
+
+'''
+testing the tables
+'''
+print(movies_table)
