@@ -29,6 +29,7 @@ import matplotlib.pyplot as plt
 from ast import literal_eval
 from listReader import *
 # creating the tables with pandas to interact with our datasets
+# getting the current working directory
 cwd = os.getcwd()
 
 
