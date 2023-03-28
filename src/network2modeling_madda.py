@@ -2,7 +2,7 @@ import networkx as nx
 from networkx.algorithms import bipartite
 import pandas as pd
 
-network_data = pd.read_csv("./dataset/network2data.csv", encoding="utf-8")
+network_data = pd.read_csv("./src/datasets/network2data_madda.csv", encoding="utf-8")
 # , dtype={'movie_ID':'string', 'title':'string', 'movie_country':'string', 'year':'string', 'cites':'string', 'person_ID':'string', 'person_role':'string', 'nconst':'string', 'primaryName':'string', 'birthYear': 'string', 'deathYear':'string' }
 
 #creation of movie set
@@ -75,22 +75,36 @@ nx.set_node_attributes(network2, people_dict)
 num_edges = network2.number_of_edges()
 print(num_edges) #113440 edges
 
-print(network2.nodes['tt0799934']['country'])
+# trys
+'''print(network2.nodes['tt0799934']['country'])
 print(network2.nodes['tt0799934']['title'])
 print(network2.nodes['tt0799934']['year'])
 print(network2.nodes['tt0799934']['cites'])
-
+'''
 
 # writing graphs
 
 #converting list-type attributes in string values to write the graphs
-for node in network2.nodes():
+'''for node in network2.nodes():
     if 'country' in network2.nodes[node]:
         network2.nodes[node]['country'] = ','.join(map(str, network2.nodes[node]['country']))
     if 'cites' in network2.nodes[node]:
         network2.nodes[node]['cites'] = ','.join(map(str, network2.nodes[node]['cites']))
     if 'role' in network2.nodes[node]:
-        network2.nodes[node]['role'] = ','.join(map(str, network2.nodes[node]['role']))
-  
-nx.write_graphml(network2, "bipartite.graphml")
+        network2.nodes[node]['role'] = ','.join(map(str, network2.nodes[node]['role']))'''
+
+#commented out because I don't need to export those networks anymore 
+'''nx.write_graphml(network2, "bipartite.graphml")
 nx.write_gexf(network2, "bipartite.gexf")
+'''
+network2 = bipartite.projected_graph(network2, people_set)
+num_edges1 = network2.number_of_edges()
+print(num_edges1)
+
+for node in network2.nodes():
+    if 'role' in network2.nodes[node]:
+        network2.nodes[node]['role'] = ','.join(map(str, network2.nodes[node]['role']))
+
+nx.write_gexf(network2, "./src/graph_files/network2.gexf")
+
+
