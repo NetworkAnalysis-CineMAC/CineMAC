@@ -3,8 +3,7 @@ from networkx.algorithms import bipartite
 import pandas as pd
 
 network_data = pd.read_csv("./src/datasets/network2data_madda.csv", encoding="utf-8")
-# , dtype={'movie_ID':'string', 'title':'string', 'movie_country':'string', 'year':'string', 'cites':'string', 'person_ID':'string', 'person_role':'string', 'nconst':'string', 'primaryName':'string', 'birthYear': 'string', 'deathYear':'string' }
-
+", dtype={'movie_ID':'string', 'title':'string', 'movie_country':'string', 'year':'string', 'cites':'string', 'person_ID':'string', 'person_role':'string', 'nconst':'string', 'primaryName':'string', 'birthYear': 'string', 'deathYear':'string' })"
 #creation of movie set
 
 network2 = nx.Graph() 
@@ -54,8 +53,6 @@ for row in network_data.iterrows():
     people_key = row[1]['person_ID']
 
     if people_key not in people_dict.keys(): 
-        # check that temp exist, the first run of dict creation tempo does not exist but I cannot state it at the beginning
-        # because I need my temp to be storing the old dict key
   
         people_dict[people_key] = {'name': row[1]['primaryName'],
                                 'role': []}        
@@ -76,35 +73,40 @@ num_edges = network2.number_of_edges()
 print(num_edges) #113440 edges
 
 # trys
-'''print(network2.nodes['tt0799934']['country'])
-print(network2.nodes['tt0799934']['title'])
-print(network2.nodes['tt0799934']['year'])
-print(network2.nodes['tt0799934']['cites'])
-'''
+print(network2.nodes['tt3008816']['country'])
+print(network2.nodes['tt3008816']['title'])
+print(network2.nodes['tt3008816']['year'])
+print(network2.nodes['tt3008816']['cites'])
+
 
 # writing graphs
 
 #converting list-type attributes in string values to write the graphs
-'''for node in network2.nodes():
+for node in network2.nodes():
     if 'country' in network2.nodes[node]:
         network2.nodes[node]['country'] = ','.join(map(str, network2.nodes[node]['country']))
     if 'cites' in network2.nodes[node]:
         network2.nodes[node]['cites'] = ','.join(map(str, network2.nodes[node]['cites']))
     if 'role' in network2.nodes[node]:
-        network2.nodes[node]['role'] = ','.join(map(str, network2.nodes[node]['role']))'''
-
-#commented out because I don't need to export those networks anymore 
-'''nx.write_graphml(network2, "bipartite.graphml")
-nx.write_gexf(network2, "bipartite.gexf")
-'''
-network2 = bipartite.projected_graph(network2, people_set)
-num_edges1 = network2.number_of_edges()
-print(num_edges1)
-
-for node in network2.nodes():
-    if 'role' in network2.nodes[node]:
         network2.nodes[node]['role'] = ','.join(map(str, network2.nodes[node]['role']))
 
-nx.write_gexf(network2, "./src/graph_files/network2.gexf")
+#commented out because I don't need to export those networks anymore 
+# this is the first one, down here I am directly projecting to get the Network we actually need
+'''nx.write_graphml(network2, "bipartite.graphml")'''
+nx.write_gexf(network2, "bipartite.gexf")
+'''
+network2proj = bipartite.projected_graph(network2, people_set)
+num_edges1 = network2proj.number_of_edges()
+print(num_edges1)
+
+#here I add the movies that define collaborations as edge lables
+separator= ","
+for node1, node2 in network2proj.edges():
+    movie_node = set(network2[node1]) & set(network2[node2])  # find the movie node connecting the two people nodes and add as edge
+    network2proj.add_edge(node1, node2, label=separator.join(list(movie_node))) #ad the edge label
+
+    
+
+nx.write_gexf(network2proj, "./data/network2proj.gexf")'''
 
 
