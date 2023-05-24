@@ -1,31 +1,49 @@
 # collaborations network averaged measure
 
 import pandas as pd
+from pprint import pprint
 
 n2_degree = pd.read_csv("src/scripts/degree.csv")
 n2_closeness = pd.read_csv("src/scripts/closeness.csv")
 n2_eigenvector = pd.read_csv("src/scripts/eigenvector.csv")
 n2_betwenness = pd.read_csv("src/scripts/betweenness.csv")
 
-n2_degree = n2_degree[["nconst", "measure"]]
-n2_eigenvector = n2_eigenvector[["nconst", "measure"]]
-n2_betwenness = n2_betwenness[["nconst", "measure"]]
+n2_closeness = n2_closeness.rename(columns={"measure": "Closeness centrality"})
+n2_degree = n2_degree[["nconst", "measure"]].rename(columns={"measure": "Degree centrality"})
+n2_eigenvector = n2_eigenvector[["nconst", "measure"]].rename(columns={"measure": "Eigenvector centrality"})
+n2_betwenness = n2_betwenness[["nconst", "measure"]].rename(columns={"measure": "Beetwenness centrality"})
 
-#print(len(n1_in_degree))
-#print(len(n1_pagerank))
-'''n1_averaged = pd.merge(n1_in_degree, n1_pagerank, left_on = "tconst", right_on="tconst")
-n1_averaged = pd.merge(n1_averaged, n1_betwenness, left_on="tconst", right_on="tconst")
-n1_averaged = n1_averaged[["tconst", "Film", "Country", "In-Degree Centrality", "PageRank Score", "Betweenness Centrality"]]'''
-#print(n1_averaged)
+# merging dfs
+n2_averaged = pd.merge(n2_betwenness, n2_closeness, left_on = "nconst", right_on="nconst")
+n2_averaged = pd.merge(n2_averaged, n2_degree, left_on="nconst", right_on="nconst", how="inner")
+n2_averaged = pd.merge(n2_averaged, n2_eigenvector, left_on="nconst", right_on="nconst", how="inner")
+n2_averaged = n2_averaged[["nconst", "name", "roles", "Degree centrality", "Eigenvector centrality","Closeness centrality", "Beetwenness centrality"]]
 
-# normalize eigenvector column
+n2_averaged = n2_averaged.drop_duplicates()
 
-#n1_averaged["Eigenvector Centrality"] =(n1_averaged["Eigenvector Centrality"]-n1_averaged["Eigenvector Centrality"].min())/(n1_averaged["Eigenvector Centrality"].max()-n1_averaged["Eigenvector Centrality"].min())
-#print(n1_averaged["Eigenvector Centrality"])
+# weighted average
+def weighted_average(df, path):
+    
+    # substitute each measure with its weighted value
+    df['Degree centrality'] = df['Degree centrality'] * 0.1
+    df['Eigenvector centrality'] = df['Eigenvector centrality'] * 0.2
+    df['Closeness centrality'] = df['Closeness centrality'] * 0.3
+    df['Betwenness centrality'] = df['Beetwenness centrality'] * 0.4
 
-# add average col
+    # add new weighted_average col
+    df['CineMAC rank'] = df[["Degree centrality", "Eigenvector centrality", "Closeness centrality", "Beetwenness centrality"]].mean(axis=1)
+    df = df.sort_values(by='CineMAC rank', ascending=False)
+    pprint(df[:20])
+    df.to_csv(path)
+    return df
 
-n1_averaged['CineMAC rank'] = n1_averaged[["In-Degree Centrality", "PageRank Score", "Betweenness Centrality"]].mean(axis=1)
-n1_averaged = n1_averaged.sort_values(by='CineMAC rank', ascending=False)
-cinemac = n1_averaged.drop_duplicates()
-cinemac.to_csv("src/graph1-tables/N1_cineMAC_rank.csv", index=False)
+weighted_df = weighted_average(n2_averaged, "src/scripts/N2_cineMAC_rank.csv")
+
+# see what happens taking out producers
+for idx, row in weighted_df.iterrows():
+    if weighted_df.at[idx, "roles"] == "producer":
+        weighted_df.drop(index=idx, axis=0, inplace=True)
+
+print(weighted_df)
+
+weighted_df.to_csv("src/scripts/N2_noprod_rank.csv")
