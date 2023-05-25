@@ -3,7 +3,7 @@ import pandas as pd
 import json
 
 
-people_names = pd.read_csv("../src/datasets/network2data.csv", encoding="utf-8")
+people_names = pd.read_csv("src/results/n2/rounded.csv", encoding="utf-8")
 
 # list of people's names for whom we want to retrieve nationality data
 people_names = set(people_names['primaryName'])
