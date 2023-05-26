@@ -33,17 +33,20 @@ def weighted_average(df, path):
     # add new weighted_average col
     df['CineMAC rank'] = df[["Degree centrality", "Eigenvector centrality", "Closeness centrality", "Betweenness centrality"]].mean(axis=1)
     df = df.sort_values(by='CineMAC rank', ascending=False)
-    pprint(df[:20])
     df.to_csv(path)
     return df
 
 weighted_df = weighted_average(n2_averaged, "src/scripts/N2_cineMAC_rank.csv")
+
 
 # see what happens taking out producers
 for idx, row in weighted_df.iterrows():
     if weighted_df.at[idx, "roles"] == "producer":
         weighted_df.drop(index=idx, axis=0, inplace=True)
 
-print(weighted_df)
 
-weighted_df.to_csv("src/scripts/N2_noprod_rank.csv")
+# weighted_df.to_csv("src/scripts/N2_noprod_rank.csv")
+
+
+
+
