@@ -7,7 +7,7 @@ Repository for the Network Analysis project within the MA course of "Digital Hum
 Project CineMAC is a network analysis project that aims to study the influence, trends and patterns of cinematic production through the creation and analysis of a network of film citations, and a corresponding network consisting of various film agents. Unlike previous studies that failed to stress the domination of the USA cinematic industry in the available data, our project addresses the power asymmetries underlying the present westernised vision of cinematic history, undermining the role of East-Asian artistic influence.
 
 To this scope, we modelled two networks comprised of information on film citations and related agents (e.g. actors, directors), respectively.  Several network analysis techniques were used, each addressing a specific way of assessing a film’s potential impact and surrounding agents in the history of cinematic production. 
-The entire documentation of the project can be found <a href="https://github.com/NetworkAnalysis-CineMAC/CineMAC/blob/main/Cinemac.pdf"> here</a>.
+All information documenting the background, data, methods and results of the project can be found on the dedicated report <a href="https://github.com/NetworkAnalysis-CineMAC/CineMAC/blob/main/Cinemac.pdf"> here</a>.
 
 
 ## Contributions
