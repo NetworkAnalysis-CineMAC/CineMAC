@@ -21,7 +21,7 @@ The entire documentation of the project can be found <a href="https://github.com
 The project’s data is acquired by the Internet Movie Database, which provides datasets in tab-separated values format, freely accessible on their dedicated <a href="https://developer.imdb.com/non-commercial-datasets/">website</a> for non-commercial use.
 
 ## Details
-## Scripts folder
+## <a href="https://github.com/NetworkAnalysis-CineMAC/CineMAC/tree/main/src/scripts">Scripts folder</a>
 
 + Data description; cleaning and processing <a href="https://github.com/NetworkAnalysis-CineMAC/CineMAC/blob/main/src/scripts/merging_chloe.ipynb">documentation</a>
 + Graph Modelling for Network of Citations and Network of Agents
