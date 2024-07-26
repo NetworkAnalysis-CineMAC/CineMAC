@@ -12,9 +12,9 @@ All information documenting the background, data, methods and results of the pro
 
 ## Contributions
 
-• The creation of a long-term impact rank that assesses USA and East Asian films according to their influence in Cinema History.
-• A general long-term impact film rank where the representation of East Asian cinema is more weighted and balanced.
-• The individuation of central figures in transnational film production collaboration to assess how production with transnational teams relates to the success of the film, and to what extent it agrees with the most famous ranks used to measure film success.
++ The creation of a long-term impact rank that assesses USA and East Asian films according to their influence in Cinema History.
++ A general long-term impact film rank where the representation of East Asian cinema is more weighted and balanced.
++ The individuation of central figures in transnational film production collaboration to assess how production with transnational teams relates to the success of the film, and to what extent it agrees with the most famous ranks used to measure film success.
 
 
  ## Data
