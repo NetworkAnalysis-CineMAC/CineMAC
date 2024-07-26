@@ -29,8 +29,8 @@ The project’s data is acquired by the Internet Movie Database, which provides 
   
 ## <a href="https://github.com/NetworkAnalysis-CineMAC/CineMAC/tree/main/src/graph_files">Graph files folder</a>
 
-+ [Final data used for graph modelling (zipped csv)]
-+ [Graph files in edgelist and gexf format (used for visualisation w/ open software Gephi)]
++ Final data used for graph modelling (zipped csv)
++ Graph files in edgelist and gexf format (used for visualisation w/ open software Gephi)
 
 ## <a href="https://github.com/NetworkAnalysis-CineMAC/CineMAC/tree/main/src/results">Results folder</a>
 Results of all the measures used to analyze the data, which form the conclusions of our project.
